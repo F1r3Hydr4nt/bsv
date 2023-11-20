@@ -1,9 +1,9 @@
 {
-  "name": "bsv",
+  "name": "elasv",
   "description": "Javascript library for Bitcoin SV (BSV).",
   "version": "2.0.10",
   "author": "Yours Inc.",
-  "homepage": "https://github.com/moneybutton/bsv",
+  "homepage": "https://github.com/F1r3Hydr4nt/elasv",
   "source": "entry.js",
   "main": "dist/bsv.cjs.js",
   "module": "dist/bsv.module.js",
@@ -16,10 +16,11 @@
     "test:mocha": "mocha",
     "test:karma": "karma start --single-run",
     "test": "yarn run test:mocha && yarn run test:karma",
-    "build": "webpack",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider webpack",
     "prepublish": "yarn build",
     "prepack": "yarn build",
-    "doc": "documentation build entry.js -f html -o doc"
+    "doc": "documentation build entry.js -f html -o doc",
+    "install": "NODE_OPTIONS=--openssl-legacy-provider yarn"
   },
   "contributors": [
     {
