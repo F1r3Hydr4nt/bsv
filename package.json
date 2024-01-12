@@ -1,9 +1,9 @@
 {
-  "name": "bsv",
+  "name": "elasv",
   "description": "Javascript library for Bitcoin SV (BSV).",
-  "version": "2.0.10",
-  "author": "Yours Inc.",
-  "homepage": "https://github.com/moneybutton/bsv",
+  "version": "2.0.11",
+  "author": "Elas.co",
+  "homepage": "https://github.com/F1r3Hydr4nt/elasv",
   "source": "entry.js",
   "main": "dist/bsv.cjs.js",
   "module": "dist/bsv.module.js",
@@ -14,12 +14,13 @@
     "lint": "standard *.js lib/**/*.js bin/**/*.js test/**/*.js",
     "pretest": "yarn run lint",
     "test:mocha": "mocha",
-    "test:karma": "karma start --single-run",
+    "test:karma": "NODE_OPTIONS=--openssl-legacy-provider karma start --single-run",
     "test": "yarn run test:mocha && yarn run test:karma",
-    "build": "webpack",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider webpack",
     "prepublish": "yarn build",
     "prepack": "yarn build",
-    "doc": "documentation build entry.js -f html -o doc"
+    "doc": "documentation build entry.js -f html -o doc",
+    "install": "NODE_OPTIONS=--openssl-legacy-provider yarn"
   },
   "contributors": [
     {
@@ -65,10 +66,15 @@
     {
       "name": "Josh Ellithorpe",
       "email": "quest@mac.com"
+    },
+    {
+      "name": "Freddie Honohan",
+      "email": "freddie@elas.co"
     }
   ],
   "keywords": [
     "bitcoin",
+    "bitcoin-sv",
     "bsv",
     "blockchain",
     "bip32",
@@ -79,7 +85,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/moneybutton/bsv.git"
+    "url": "https://github.com/F1r3Hydr4nt/elasv.git"
   },
   "engines": {
     "node": ">=8.0.0"
@@ -106,8 +112,8 @@
     "assert": "2.0.0",
     "babel-loader": "8.2.2",
     "documentation": "^13.1.1",
-    "karma": "^6.3.2",
-    "karma-chrome-launcher": "^3.1.0",
+    "karma": "^6.4.2",
+    "karma-chrome-launcher": "^3.2.0",
     "karma-firefox-launcher": "^2.1.0",
     "karma-mocha": "^2.0.1",
     "karma-webpack": "^5.0.0",

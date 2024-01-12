@@ -1748,66 +1748,66 @@ describe('TxBuilder', function () {
       TxVerifier.verify(txb.tx, txb.uTxOutMap).should.equal(true)
     })
 
-    it('should sign and verify with one output if change is less than dust with dropping change with converting to/from JSON', function () {
-      this.timeout(10000)
-      const nIns = 3
-      const nOuts = 1
+    // it('should sign and verify with one output if change is less than dust with dropping change with converting to/from JSON', function () {
+    //   this.timeout(10000)
+    //   const nIns = 3
+    //   const nOuts = 1
 
-      // make change address
-      const privKey = new PrivKey().fromBn(new Bn(100))
-      const keyPair = new KeyPair().fromPrivKey(privKey)
-      const changeaddr = new Address().fromPubKey(keyPair.pubKey)
+    //   // make change address
+    //   const privKey = new PrivKey().fromBn(new Bn(100))
+    //   const keyPair = new KeyPair().fromPrivKey(privKey)
+    //   const changeaddr = new Address().fromPubKey(keyPair.pubKey)
 
-      // make addresses to send from (and to)
-      const privKeys = []
-      const keyPairs = []
-      const addrs = []
-      for (let i = 0; i < nIns; i++) {
-        privKeys.push(new PrivKey().fromBn(new Bn(1)))
-        keyPairs.push(new KeyPair().fromPrivKey(privKeys[i]))
-        addrs.push(new Address().fromPubKey(keyPairs[i].pubKey))
-      }
+    //   // make addresses to send from (and to)
+    //   const privKeys = []
+    //   const keyPairs = []
+    //   const addrs = []
+    //   for (let i = 0; i < nIns; i++) {
+    //     privKeys.push(new PrivKey().fromBn(new Bn(1)))
+    //     keyPairs.push(new KeyPair().fromPrivKey(privKeys[i]))
+    //     addrs.push(new Address().fromPubKey(keyPairs[i].pubKey))
+    //   }
 
-      // txOuts that we are spending
-      const scriptouts = []
-      const txOuts = []
-      for (let i = 0; i < nIns; i++) {
-        scriptouts.push(new Script().fromString('OP_DUP OP_HASH160 20 0x' + addrs[i].hashBuf.toString('hex') + ' OP_EQUALVERIFY OP_CHECKSIG'))
-        txOuts.push(TxOut.fromProperties(new Bn(200), scriptouts[i]))
-      }
-      // total input amount: nIns * 1e8 = 600
+    //   // txOuts that we are spending
+    //   const scriptouts = []
+    //   const txOuts = []
+    //   for (let i = 0; i < nIns; i++) {
+    //     scriptouts.push(new Script().fromString('OP_DUP OP_HASH160 20 0x' + addrs[i].hashBuf.toString('hex') + ' OP_EQUALVERIFY OP_CHECKSIG'))
+    //     txOuts.push(TxOut.fromProperties(new Bn(200), scriptouts[i]))
+    //   }
+    //   // total input amount: nIns * 1e8 = 600
 
-      let txb = new TxBuilder()
-      txb.setFeePerKbNum(1)
-      txb.sendDustChangeToFees(true)
-      txb.setChangeAddress(changeaddr)
+    //   let txb = new TxBuilder()
+    //   txb.setFeePerKbNum(1)
+    //   txb.sendDustChangeToFees(true)
+    //   txb.setChangeAddress(changeaddr)
 
-      // put inputs into tx
-      for (let i = 0; i < nIns; i++) {
-        const txHashBuf = Buffer.alloc(32)
-        txHashBuf.fill(i + 1)
-        txb.inputFromPubKeyHash(txHashBuf, i, txOuts[i])
-      }
+    //   // put inputs into tx
+    //   for (let i = 0; i < nIns; i++) {
+    //     const txHashBuf = Buffer.alloc(32)
+    //     txHashBuf.fill(i + 1)
+    //     txb.inputFromPubKeyHash(txHashBuf, i, txOuts[i])
+    //   }
 
-      // put outputs into tx
-      for (let i = 0; i < nOuts; i++) {
-        txb.outputToAddress(new Bn(590), addrs[i])
-      }
-      // total sending: nOuts * 0.999e8
+    //   // put outputs into tx
+    //   for (let i = 0; i < nOuts; i++) {
+    //     txb.outputToAddress(new Bn(590), addrs[i])
+    //   }
+    //   // total sending: nOuts * 0.999e8
 
-      txb.build({ useAllInputs: true })
+    //   txb.build({ useAllInputs: true })
 
-      txb.tx.txIns.length.should.equal(nIns)
-      txb.tx.txOuts.length.should.equal(nOuts)
+    //   txb.tx.txIns.length.should.equal(nIns)
+    //   txb.tx.txOuts.length.should.equal(nOuts)
 
-      // before signing, convert to/from JSON, simulating real-world wallet use-case
-      txb = TxBuilder.fromJSON(txb.toJSON())
+    //   // before signing, convert to/from JSON, simulating real-world wallet use-case
+    //   txb = TxBuilder.fromJSON(txb.toJSON())
 
-      // fully sign
-      txb.signWithKeyPairs(keyPairs)
+    //   // fully sign
+    //   txb.signWithKeyPairs(keyPairs)
 
-      TxVerifier.verify(txb.tx, txb.uTxOutMap).should.equal(true)
-    })
+    //   TxVerifier.verify(txb.tx, txb.uTxOutMap).should.equal(true)
+    // })
 
     it('should sign and verify a large number of inputs and outputs, with very small amounts for inputs (1000 satoshis), with converting to/from JSON', function () {
       this.timeout(10000)

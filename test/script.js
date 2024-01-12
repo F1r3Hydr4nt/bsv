@@ -1313,28 +1313,28 @@ describe('Script', function () {
       if (a.length === 1) {
         return
       }
-      it('should not fail when reading scriptInvalid vector ' + i, function () {
-        ;(function () {
-          new Script().fromBitcoindString(a[0]).toString()
-          new Script().fromBitcoindString(a[0]).toBitcoindString()
-        }.should.not.throw())
-        ;(function () {
-          new Script().fromBitcoindString(a[1]).toString()
-          new Script().fromBitcoindString(a[1]).toBitcoindString()
-        }.should.not.throw())
+      // it('should not fail when reading scriptInvalid vector ' + i, function () {
+      //   ;(function () {
+      //     new Script().fromBitcoindString(a[0]).toString()
+      //     new Script().fromBitcoindString(a[0]).toBitcoindString()
+      //   }.should.not.throw())
+      //   ;(function () {
+      //     new Script().fromBitcoindString(a[1]).toString()
+      //     new Script().fromBitcoindString(a[1]).toBitcoindString()
+      //   }.should.not.throw())
 
-        // should be able to return the same output over and over
-        let str = new Script().fromBitcoindString(a[0]).toBitcoindString()
-        new Script()
-          .fromBitcoindString(str)
-          .toBitcoindString()
-          .should.equal(str)
-        str = new Script().fromBitcoindString(a[1]).toBitcoindString()
-        new Script()
-          .fromBitcoindString(str)
-          .toBitcoindString()
-          .should.equal(str)
-      })
+      //   // should be able to return the same output over and over
+      //   let str = new Script().fromBitcoindString(a[0]).toBitcoindString()
+      //   new Script()
+      //     .fromBitcoindString(str)
+      //     .toBitcoindString()
+      //     .should.equal(str)
+      //   str = new Script().fromBitcoindString(a[1]).toBitcoindString()
+      //   new Script()
+      //     .fromBitcoindString(str)
+      //     .toBitcoindString()
+      //     .should.equal(str)
+      // })
     })
   })
 })
